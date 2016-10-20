@@ -1,0 +1,220 @@
+SQL> SELECT ENAME, JOB, SAL
+  2  FROM EMP
+  3  WHERE SAL =
+  4  		(
+  5  		 SELECT MAX(SAL)
+  6  		 FROM EMP
+  7  		);
+
+ENAME      JOB              SAL                                                                                         
+---------- --------- ----------                                                                                         
+KING       PRESIDENT       5000                                                                                         
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME, JOB, SAL
+  2  FROM EMP
+  3  WHERE SAL IN
+  4  		(
+  5  		 SELECT MAX(SAL)
+  6  		 FROM EMP
+  7  		 GROUP BY DEPTNO
+  8* 		)
+SQL> /
+
+ENAME      JOB              SAL                                                                                         
+---------- --------- ----------                                                                                         
+BLAKE      MANAGER         2850                                                                                         
+SCOTT      ANALYST         3000                                                                                         
+KING       PRESIDENT       5000                                                                                         
+FORD       ANALYST         3000                                                                                         
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME, DEPTNO, JOB, SAL
+  2  FROM EMP
+  3  WHERE SAL IN
+  4  		(
+  5  		 SELECT MAX(SAL)
+  6  		 FROM EMP
+  7  		 GROUP BY DEPTNO
+  8* 		)
+SQL> /
+
+ENAME          DEPTNO JOB              SAL                                                                              
+---------- ---------- --------- ----------                                                                              
+BLAKE              30 MANAGER         2850                                                                              
+SCOTT              20 ANALYST         3000                                                                              
+KING               10 PRESIDENT       5000                                                                              
+FORD               20 ANALYST         3000                                                                              
+
+SQL> SELECT ENAME, DEPTNO, HIREDATE, JOB
+  2  FROM EMP
+  3  WHERE HIREDATE IN
+  4  		      (
+  5  			SELECT HIREDATE
+  6  			FROM EMP
+  7  			WHERE DEPTNO=30
+  8  			);
+
+ENAME          DEPTNO HIREDATE  JOB                                                                                     
+---------- ---------- --------- ---------                                                                               
+ALLEN              30 20-FEB-81 SALESMAN                                                                                
+WARD               30 22-FEB-81 SALESMAN                                                                                
+MARTIN             30 28-SEP-81 SALESMAN                                                                                
+BLAKE              30 01-MAY-81 MANAGER                                                                                 
+TURNER             30 08-SEP-81 SALESMAN                                                                                
+FORD               20 03-DEC-81 ANALYST                                                                                 
+JAMES              30 03-DEC-81 CLERK                                                                                   
+
+7 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME, DEPTNO, HIREDATE, JOB
+  2  FROM EMP
+  3  WHERE HIREDATE IN
+  4  		      (
+  5  			SELECT HIREDATE
+  6  			FROM EMP
+  7  			WHERE DEPTNO=30
+  8  			)
+  9* AND DEPTNO=30
+SQL> /
+
+ENAME          DEPTNO HIREDATE  JOB                                                                                     
+---------- ---------- --------- ---------                                                                               
+ALLEN              30 20-FEB-81 SALESMAN                                                                                
+WARD               30 22-FEB-81 SALESMAN                                                                                
+MARTIN             30 28-SEP-81 SALESMAN                                                                                
+BLAKE              30 01-MAY-81 MANAGER                                                                                 
+TURNER             30 08-SEP-81 SALESMAN                                                                                
+JAMES              30 03-DEC-81 CLERK                                                                                   
+
+6 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME, DEPTNO, HIREDATE, JOB
+  2  FROM EMP
+  3  WHERE HIREDATE IN
+  4  		      (
+  5  			SELECT HIREDATE
+  6  			FROM EMP
+  7  			WHERE DEPTNO=30
+  8  			)
+  9* AND DEPTNO=30
+SQL> /
+
+ENAME          DEPTNO HIREDATE  JOB                                                                                     
+---------- ---------- --------- ---------                                                                               
+ALLEN              30 20-FEB-81 SALESMAN                                                                                
+WARD               30 22-FEB-81 SALESMAN                                                                                
+MARTIN             30 28-SEP-81 SALESMAN                                                                                
+BLAKE              30 01-MAY-81 MANAGER                                                                                 
+TURNER             30 08-SEP-81 SALESMAN                                                                                
+JAMES              30 03-DEC-81 CLERK                                                                                   
+
+6 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME, DEPTNO, HIREDATE, JOB
+  2  FROM EMP
+  3  WHERE HIREDATE IN
+  4  		      (
+  5  			SELECT HIREDATE
+  6  			FROM EMP
+  7  			WHERE DEPTNO=30
+  8  			)
+  9* AND DEPTNO <>30
+SQL> /
+
+ENAME          DEPTNO HIREDATE  JOB                                                                                     
+---------- ---------- --------- ---------                                                                               
+FORD               20 03-DEC-81 ANALYST                                                                                 
+
+SQL> SELECT ENAME, SAL
+  2  FROM EMP
+  3  WHERE SAL IN
+  4  		(
+  5  		 SELECT SAL
+  6  		 FROM EMP
+  7  		 WHERE HIREDATE IN
+  8  		 (
+  9  		  SELECT HIREDATE
+ 10  		  FROM EMP
+ 11               WHERE DEPTNO=20
+ 12  		)
+ 13  	      );
+
+ENAME             SAL                                                                                                   
+---------- ----------                                                                                                   
+SMITH             800                                                                                                   
+JONES            2975                                                                                                   
+FORD             3000                                                                                                   
+SCOTT            3000                                                                                                   
+ADAMS            1100                                                                                                   
+JAMES             950                                                                                                   
+
+6 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME, HIREDATE, JOB, SAL
+  2  FROM EMP
+  3  WHERE SAL IN
+  4  		(
+  5  		 SELECT SAL
+  6  		 FROM EMP
+  7  		 WHERE HIREDATE IN
+  8  				 (
+  9  		 		 SELECT HIREDATE
+ 10  				 FROM EMP
+ 11  		                 WHERE DEPTNO IN 
+ 12  						(
+ 13  						 SELECT DEPTNO
+ 14  						 FROM DEPT
+ 15  						 WHERE DNAME='RESEARCH'
+ 16  					        )
+ 17  	                        )
+ 18* 		)
+SQL> /
+
+ENAME      HIREDATE  JOB              SAL                                                                               
+---------- --------- --------- ----------                                                                               
+SMITH      17-DEC-80 CLERK            800                                                                               
+JONES      02-APR-81 MANAGER         2975                                                                               
+FORD       03-DEC-81 ANALYST         3000                                                                               
+SCOTT      19-APR-87 ANALYST         3000                                                                               
+ADAMS      23-MAY-87 CLERK           1100                                                                               
+JAMES      03-DEC-81 CLERK            950                                                                               
+
+6 rows selected.
+
+SQL> SELECT EMPNO, ENAAME, JOB, SAL
+  2  
+SQL> SELECT EMPNO, ENAME, JOB, SAL
+  2  FROM EMP
+  3  WHERE SAL<ANY
+  4  (
+  5   SELECT SAL
+  6   FROM EMP
+  7   WHERE JOB='CLERK'
+  8  );
+
+     EMPNO ENAME      JOB              SAL                                                                              
+---------- ---------- --------- ----------                                                                              
+      7369 SMITH      CLERK            800                                                                              
+      7900 JAMES      CLERK            950                                                                              
+      7876 ADAMS      CLERK           1100                                                                              
+      7521 WARD       SALESMAN        1250                                                                              
+      7654 MARTIN     SALESMAN        1250                                                                              
+
+SQL> SPOOL OFF
