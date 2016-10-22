@@ -1,0 +1,38 @@
+SQL> SELECT COLUMN_ID, COLUMN_NAME, DATA_TYPE, DATA_PRECISION, DATA_SCALE
+  2  FROM USER_TAB_COLUMNS
+  3  WHERE TABLE_NAME='EMP';
+
+COLUMN_ID COLUMN_NAME  DATA_TYPE    DATA_PRECISION DATA_SCALE                                                           
+--------- ------------ ------------ -------------- ----------                                                           
+        1 EMPNO        NUMBER                    4          0                                                           
+        2 ENAME        VARCHAR2                                                                                         
+        3 JOB          VARCHAR2                                                                                         
+        4 MGR          NUMBER                    4          0                                                           
+        5 HIREDATE     DATE                                                                                             
+        6 SAL          NUMBER                    7          2                                                           
+        7 COMM         NUMBER                    7          2                                                           
+        8 DEPTNO       NUMBER                    2          0                                                           
+
+8 rows selected.
+
+SQL> SELECT COLUMN_ID, COLUMN_NAME, DATA_TYPE, DATA_PRECISION, DATA_SCALE
+  2  FROM USER_TAB_COLUMNS
+  3  WHERE TABLE_NAME='DEPT';
+
+COLUMN_ID COLUMN_NAME  DATA_TYPE    DATA_PRECISION DATA_SCALE                                                           
+--------- ------------ ------------ -------------- ----------                                                           
+        1 DEPTNO       NUMBER                    2          0                                                           
+        2 DNAME        VARCHAR2                                                                                         
+        3 LOC          VARCHAR2                                                                                         
+
+SQL> SELECT COLUMN_ID, COLUMN_NAME, DATA_TYPE, DATA_PRECISION, DATA_SCALE
+  2  FROM USER_TAB_COLUMNS
+  3  WHERE TABLE_NAME='SALGRADE';
+
+COLUMN_ID COLUMN_NAME  DATA_TYPE    DATA_PRECISION DATA_SCALE                                                           
+--------- ------------ ------------ -------------- ----------                                                           
+        1 GRADE        NUMBER                                                                                           
+        2 LOSAL        NUMBER                                                                                           
+        3 HISAL        NUMBER                                                                                           
+
+SQL> SPOOL OFF
