@@ -1,0 +1,804 @@
+SQL> SELECT ENAME, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  CONNECT BY ENAME;
+CONNECT BY ENAME
+               *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3* CONNECT BY EMPNO=MGR
+SQL> /
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7369 SMITH            7902 CLERK            800 17-DEC-80                                                         
+      7499 ALLEN            7698 SALESMAN        1600 20-FEB-81                                                         
+      7521 WARD             7698 SALESMAN        1250 22-FEB-81                                                         
+      7566 JONES            7839 MANAGER         2975 02-APR-81                                                         
+      7654 MARTIN           7698 SALESMAN        1250 28-SEP-81                                                         
+      7698 BLAKE            7839 MANAGER         2850 01-MAY-81                                                         
+      7782 CLARK            7839 MANAGER         2450 09-JUN-81                                                         
+      7788 SCOTT            7566 ANALYST         3000 19-APR-87                                                         
+      7839 KING                  PRESIDENT       5000 17-NOV-81                                                         
+      7844 TURNER           7698 SALESMAN        1500 08-SEP-81                                                         
+      7876 ADAMS            7788 CLERK           1100 23-MAY-87                                                         
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7900 JAMES            7698 CLERK            950 03-DEC-81                                                         
+      7902 FORD             7566 ANALYST         3000 03-DEC-81                                                         
+      7934 MILLER           7782 CLERK           1300 23-JAN-82                                                         
+
+14 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3* CONNECT BY PRIOR EMPNO=MGR
+SQL> /
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7788 SCOTT            7566 ANALYST         3000 19-APR-87                                                         
+      7876 ADAMS            7788 CLERK           1100 23-MAY-87                                                         
+      7902 FORD             7566 ANALYST         3000 03-DEC-81                                                         
+      7369 SMITH            7902 CLERK            800 17-DEC-80                                                         
+      7499 ALLEN            7698 SALESMAN        1600 20-FEB-81                                                         
+      7900 JAMES            7698 CLERK            950 03-DEC-81                                                         
+      7844 TURNER           7698 SALESMAN        1500 08-SEP-81                                                         
+      7654 MARTIN           7698 SALESMAN        1250 28-SEP-81                                                         
+      7521 WARD             7698 SALESMAN        1250 22-FEB-81                                                         
+      7934 MILLER           7782 CLERK           1300 23-JAN-82                                                         
+      7876 ADAMS            7788 CLERK           1100 23-MAY-87                                                         
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7566 JONES            7839 MANAGER         2975 02-APR-81                                                         
+      7788 SCOTT            7566 ANALYST         3000 19-APR-87                                                         
+      7876 ADAMS            7788 CLERK           1100 23-MAY-87                                                         
+      7902 FORD             7566 ANALYST         3000 03-DEC-81                                                         
+      7369 SMITH            7902 CLERK            800 17-DEC-80                                                         
+      7782 CLARK            7839 MANAGER         2450 09-JUN-81                                                         
+      7934 MILLER           7782 CLERK           1300 23-JAN-82                                                         
+      7698 BLAKE            7839 MANAGER         2850 01-MAY-81                                                         
+      7499 ALLEN            7698 SALESMAN        1600 20-FEB-81                                                         
+      7900 JAMES            7698 CLERK            950 03-DEC-81                                                         
+      7844 TURNER           7698 SALESMAN        1500 08-SEP-81                                                         
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7654 MARTIN           7698 SALESMAN        1250 28-SEP-81                                                         
+      7521 WARD             7698 SALESMAN        1250 22-FEB-81                                                         
+      7369 SMITH            7902 CLERK            800 17-DEC-80                                                         
+      7839 KING                  PRESIDENT       5000 17-NOV-81                                                         
+      7566 JONES            7839 MANAGER         2975 02-APR-81                                                         
+      7788 SCOTT            7566 ANALYST         3000 19-APR-87                                                         
+      7876 ADAMS            7788 CLERK           1100 23-MAY-87                                                         
+      7902 FORD             7566 ANALYST         3000 03-DEC-81                                                         
+      7369 SMITH            7902 CLERK            800 17-DEC-80                                                         
+      7782 CLARK            7839 MANAGER         2450 09-JUN-81                                                         
+      7934 MILLER           7782 CLERK           1300 23-JAN-82                                                         
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7698 BLAKE            7839 MANAGER         2850 01-MAY-81                                                         
+      7499 ALLEN            7698 SALESMAN        1600 20-FEB-81                                                         
+      7900 JAMES            7698 CLERK            950 03-DEC-81                                                         
+      7844 TURNER           7698 SALESMAN        1500 08-SEP-81                                                         
+      7654 MARTIN           7698 SALESMAN        1250 28-SEP-81                                                         
+      7521 WARD             7698 SALESMAN        1250 22-FEB-81                                                         
+
+39 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH ENAME='KING'
+  4* CONNECT BY PRIOR EMPNO=MGR
+SQL> /
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7839 KING                  PRESIDENT       5000 17-NOV-81                                                         
+      7566 JONES            7839 MANAGER         2975 02-APR-81                                                         
+      7788 SCOTT            7566 ANALYST         3000 19-APR-87                                                         
+      7876 ADAMS            7788 CLERK           1100 23-MAY-87                                                         
+      7902 FORD             7566 ANALYST         3000 03-DEC-81                                                         
+      7369 SMITH            7902 CLERK            800 17-DEC-80                                                         
+      7698 BLAKE            7839 MANAGER         2850 01-MAY-81                                                         
+      7499 ALLEN            7698 SALESMAN        1600 20-FEB-81                                                         
+      7521 WARD             7698 SALESMAN        1250 22-FEB-81                                                         
+      7654 MARTIN           7698 SALESMAN        1250 28-SEP-81                                                         
+      7844 TURNER           7698 SALESMAN        1500 08-SEP-81                                                         
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7900 JAMES            7698 CLERK            950 03-DEC-81                                                         
+      7782 CLARK            7839 MANAGER         2450 09-JUN-81                                                         
+      7934 MILLER           7782 CLERK           1300 23-JAN-82                                                         
+
+14 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH ENAME='SCOTT'
+  4* CONNECT BY PRIOR EMPNO=MGR
+SQL> /
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7788 SCOTT            7566 ANALYST         3000 19-APR-87                                                         
+      7876 ADAMS            7788 CLERK           1100 23-MAY-87                                                         
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH ENAME='JONES'
+  4* CONNECT BY PRIOR EMPNO=MGR
+SQL> /
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7566 JONES            7839 MANAGER         2975 02-APR-81                                                         
+      7788 SCOTT            7566 ANALYST         3000 19-APR-87                                                         
+      7876 ADAMS            7788 CLERK           1100 23-MAY-87                                                         
+      7902 FORD             7566 ANALYST         3000 03-DEC-81                                                         
+      7369 SMITH            7902 CLERK            800 17-DEC-80                                                         
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH ENAME='JONES'
+  4* CONNECT BY EMPNO=MGR PRIOR 
+SQL> /
+CONNECT BY EMPNO=MGR PRIOR 
+                     *
+ERROR at line 4:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH ENAME='JONES'
+  4* CONNECT BY EMPNO= PRIOR MGR
+SQL> /
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7566 JONES            7839 MANAGER         2975 02-APR-81                                                         
+      7839 KING                  PRESIDENT       5000 17-NOV-81                                                         
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH JOB='ANALYST'
+  4* CONNECT BY EMPNO= PRIOR MGR
+SQL> /
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7788 SCOTT            7566 ANALYST         3000 19-APR-87                                                         
+      7566 JONES            7839 MANAGER         2975 02-APR-81                                                         
+      7839 KING                  PRESIDENT       5000 17-NOV-81                                                         
+      7902 FORD             7566 ANALYST         3000 03-DEC-81                                                         
+      7566 JONES            7839 MANAGER         2975 02-APR-81                                                         
+      7839 KING                  PRESIDENT       5000 17-NOV-81                                                         
+
+6 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH JOB='ANALYST'
+  4* CONNECT BY PRIOR EMPNO= MGR
+SQL> /
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7788 SCOTT            7566 ANALYST         3000 19-APR-87                                                         
+      7876 ADAMS            7788 CLERK           1100 23-MAY-87                                                         
+      7902 FORD             7566 ANALYST         3000 03-DEC-81                                                         
+      7369 SMITH            7902 CLERK            800 17-DEC-80                                                         
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH SAL=
+  4  		(SELECT MAX(SAL) 
+  5  		 FROM EMP
+  6  		)
+  7* CONNECT BY PRIOR EMPNO= MGR
+SQL> /
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7839 KING                  PRESIDENT       5000 17-NOV-81                                                         
+      7566 JONES            7839 MANAGER         2975 02-APR-81                                                         
+      7788 SCOTT            7566 ANALYST         3000 19-APR-87                                                         
+      7876 ADAMS            7788 CLERK           1100 23-MAY-87                                                         
+      7902 FORD             7566 ANALYST         3000 03-DEC-81                                                         
+      7369 SMITH            7902 CLERK            800 17-DEC-80                                                         
+      7698 BLAKE            7839 MANAGER         2850 01-MAY-81                                                         
+      7499 ALLEN            7698 SALESMAN        1600 20-FEB-81                                                         
+      7521 WARD             7698 SALESMAN        1250 22-FEB-81                                                         
+      7654 MARTIN           7698 SALESMAN        1250 28-SEP-81                                                         
+      7844 TURNER           7698 SALESMAN        1500 08-SEP-81                                                         
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7900 JAMES            7698 CLERK            950 03-DEC-81                                                         
+      7782 CLARK            7839 MANAGER         2450 09-JUN-81                                                         
+      7934 MILLER           7782 CLERK           1300 23-JAN-82                                                         
+
+14 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH SAL=
+  4  		(SELECT MAX(SAL) 
+  5  		 FROM EMP
+  6  		)
+  7* CONNECT BY EMPNO= PRIOR MGR
+SQL> /
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7839 KING                  PRESIDENT       5000 17-NOV-81                                                         
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH DEPTNO=
+  4  		(SELECT DEPTNO 
+  5  		 FROM EMP
+  6  		 WHERE SAL=
+  7  			(
+  8  				SELECT MAX(SAL)
+  9  				FROM EMP
+ 10  			)
+ 11  		)
+ 12* CONNECT BY PRIOR EMPNO= MGR
+SQL> /
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7934 MILLER           7782 CLERK           1300 23-JAN-82                                                         
+      7782 CLARK            7839 MANAGER         2450 09-JUN-81                                                         
+      7934 MILLER           7782 CLERK           1300 23-JAN-82                                                         
+      7839 KING                  PRESIDENT       5000 17-NOV-81                                                         
+      7566 JONES            7839 MANAGER         2975 02-APR-81                                                         
+      7788 SCOTT            7566 ANALYST         3000 19-APR-87                                                         
+      7876 ADAMS            7788 CLERK           1100 23-MAY-87                                                         
+      7902 FORD             7566 ANALYST         3000 03-DEC-81                                                         
+      7369 SMITH            7902 CLERK            800 17-DEC-80                                                         
+      7698 BLAKE            7839 MANAGER         2850 01-MAY-81                                                         
+      7499 ALLEN            7698 SALESMAN        1600 20-FEB-81                                                         
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7521 WARD             7698 SALESMAN        1250 22-FEB-81                                                         
+      7654 MARTIN           7698 SALESMAN        1250 28-SEP-81                                                         
+      7844 TURNER           7698 SALESMAN        1500 08-SEP-81                                                         
+      7900 JAMES            7698 CLERK            950 03-DEC-81                                                         
+      7782 CLARK            7839 MANAGER         2450 09-JUN-81                                                         
+      7934 MILLER           7782 CLERK           1300 23-JAN-82                                                         
+
+17 rows selected.
+
+SQL> SELECT MAX(SAL)
+  2  FROM EMP;
+
+  MAX(SAL)                                                                                                              
+----------                                                                                                              
+      5000                                                                                                              
+
+SQL> SELECT DEPTNO
+  2  FROM EMP
+  3  WHERE SAL=5000;
+
+    DEPTNO                                                                                                              
+----------                                                                                                              
+        10                                                                                                              
+
+SQL> SELECT EMPNO, ENAME, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH DEPTNO=10
+  4  CONNECT BY PRIOR EMPNO=MGR;
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7934 MILLER           7782 CLERK           1300 23-JAN-82                                                         
+      7782 CLARK            7839 MANAGER         2450 09-JUN-81                                                         
+      7934 MILLER           7782 CLERK           1300 23-JAN-82                                                         
+      7839 KING                  PRESIDENT       5000 17-NOV-81                                                         
+      7566 JONES            7839 MANAGER         2975 02-APR-81                                                         
+      7788 SCOTT            7566 ANALYST         3000 19-APR-87                                                         
+      7876 ADAMS            7788 CLERK           1100 23-MAY-87                                                         
+      7902 FORD             7566 ANALYST         3000 03-DEC-81                                                         
+      7369 SMITH            7902 CLERK            800 17-DEC-80                                                         
+      7698 BLAKE            7839 MANAGER         2850 01-MAY-81                                                         
+      7499 ALLEN            7698 SALESMAN        1600 20-FEB-81                                                         
+
+     EMPNO ENAME             MGR JOB              SAL HIREDATE                                                          
+---------- ---------- ---------- --------- ---------- ---------                                                         
+      7521 WARD             7698 SALESMAN        1250 22-FEB-81                                                         
+      7654 MARTIN           7698 SALESMAN        1250 28-SEP-81                                                         
+      7844 TURNER           7698 SALESMAN        1500 08-SEP-81                                                         
+      7900 JAMES            7698 CLERK            950 03-DEC-81                                                         
+      7782 CLARK            7839 MANAGER         2450 09-JUN-81                                                         
+      7934 MILLER           7782 CLERK           1300 23-JAN-82                                                         
+
+17 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, DEPTNO, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH DEPTNO=10
+  4* CONNECT BY PRIOR EMPNO=MGR
+SQL> /
+
+     EMPNO ENAME          DEPTNO        MGR JOB              SAL HIREDATE                                               
+---------- ---------- ---------- ---------- --------- ---------- ---------                                              
+      7934 MILLER             10       7782 CLERK           1300 23-JAN-82                                              
+      7782 CLARK              10       7839 MANAGER         2450 09-JUN-81                                              
+      7934 MILLER             10       7782 CLERK           1300 23-JAN-82                                              
+      7839 KING               10            PRESIDENT       5000 17-NOV-81                                              
+      7566 JONES              20       7839 MANAGER         2975 02-APR-81                                              
+      7788 SCOTT              20       7566 ANALYST         3000 19-APR-87                                              
+      7876 ADAMS              20       7788 CLERK           1100 23-MAY-87                                              
+      7902 FORD               20       7566 ANALYST         3000 03-DEC-81                                              
+      7369 SMITH              20       7902 CLERK            800 17-DEC-80                                              
+      7698 BLAKE              30       7839 MANAGER         2850 01-MAY-81                                              
+      7499 ALLEN              30       7698 SALESMAN        1600 20-FEB-81                                              
+
+     EMPNO ENAME          DEPTNO        MGR JOB              SAL HIREDATE                                               
+---------- ---------- ---------- ---------- --------- ---------- ---------                                              
+      7521 WARD               30       7698 SALESMAN        1250 22-FEB-81                                              
+      7654 MARTIN             30       7698 SALESMAN        1250 28-SEP-81                                              
+      7844 TURNER             30       7698 SALESMAN        1500 08-SEP-81                                              
+      7900 JAMES              30       7698 CLERK            950 03-DEC-81                                              
+      7782 CLARK              10       7839 MANAGER         2450 09-JUN-81                                              
+      7934 MILLER             10       7782 CLERK           1300 23-JAN-82                                              
+
+17 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, DEPTNO, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH SAL=
+  4  		(
+  5  		SELECT MAX(SAL)
+  6  		FROM EMP
+  7  		WHERE DEPTNO=
+  8  				(
+  9  				SELECT DEPNO
+ 10  				FROM EMP
+ 11  				WHERE DNAME='RESEARCH'
+ 12  				)
+ 13  		)
+ 14* CONNECT BY PRIOR EMPNO=MGR
+SQL> /
+				WHERE DNAME='RESEARCH'
+				      *
+ERROR at line 11:
+ORA-00904: "DNAME": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, DEPTNO, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH SAL=
+  4  		(
+  5  		SELECT MAX(SAL)
+  6  		FROM EMP
+  7  		WHERE DEPTNO=
+  8  				(
+  9  				SELECT DEPTNO
+ 10  				FROM DEPT
+ 11  				WHERE DNAME='RESEARCH'
+ 12  				)
+ 13  		)
+ 14* CONNECT BY PRIOR EMPNO=MGR
+SQL> /
+
+     EMPNO ENAME          DEPTNO        MGR JOB              SAL HIREDATE                                               
+---------- ---------- ---------- ---------- --------- ---------- ---------                                              
+      7788 SCOTT              20       7566 ANALYST         3000 19-APR-87                                              
+      7876 ADAMS              20       7788 CLERK           1100 23-MAY-87                                              
+      7902 FORD               20       7566 ANALYST         3000 03-DEC-81                                              
+      7369 SMITH              20       7902 CLERK            800 17-DEC-80                                              
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, DEPTNO, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH ENAME=
+  4  		(
+  5  		 SELECT ENAME
+  6  		FROM EMP E, SALGRADE S
+  7  		WHERE E.SAL BETWEEN S.LOSAL AND S.HISAL
+  8  		)
+  9* CONNECT BY PRIOR EMPNO=MGR
+SQL> /
+		 SELECT ENAME
+		 *
+ERROR at line 5:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, DEPTNO, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH ENAME IN
+  4  		(
+  5  		 SELECT ENAME
+  6  		FROM EMP E, SALGRADE S
+  7  		WHERE E.SAL BETWEEN S.LOSAL AND S.HISAL
+  8  		)
+  9* CONNECT BY PRIOR EMPNO=MGR
+SQL> /
+
+     EMPNO ENAME          DEPTNO        MGR JOB              SAL HIREDATE                                               
+---------- ---------- ---------- ---------- --------- ---------- ---------                                              
+      7788 SCOTT              20       7566 ANALYST         3000 19-APR-87                                              
+      7876 ADAMS              20       7788 CLERK           1100 23-MAY-87                                              
+      7902 FORD               20       7566 ANALYST         3000 03-DEC-81                                              
+      7369 SMITH              20       7902 CLERK            800 17-DEC-80                                              
+      7499 ALLEN              30       7698 SALESMAN        1600 20-FEB-81                                              
+      7521 WARD               30       7698 SALESMAN        1250 22-FEB-81                                              
+      7654 MARTIN             30       7698 SALESMAN        1250 28-SEP-81                                              
+      7844 TURNER             30       7698 SALESMAN        1500 08-SEP-81                                              
+      7900 JAMES              30       7698 CLERK            950 03-DEC-81                                              
+      7934 MILLER             10       7782 CLERK           1300 23-JAN-82                                              
+      7876 ADAMS              20       7788 CLERK           1100 23-MAY-87                                              
+
+     EMPNO ENAME          DEPTNO        MGR JOB              SAL HIREDATE                                               
+---------- ---------- ---------- ---------- --------- ---------- ---------                                              
+      7566 JONES              20       7839 MANAGER         2975 02-APR-81                                              
+      7788 SCOTT              20       7566 ANALYST         3000 19-APR-87                                              
+      7876 ADAMS              20       7788 CLERK           1100 23-MAY-87                                              
+      7902 FORD               20       7566 ANALYST         3000 03-DEC-81                                              
+      7369 SMITH              20       7902 CLERK            800 17-DEC-80                                              
+      7698 BLAKE              30       7839 MANAGER         2850 01-MAY-81                                              
+      7499 ALLEN              30       7698 SALESMAN        1600 20-FEB-81                                              
+      7521 WARD               30       7698 SALESMAN        1250 22-FEB-81                                              
+      7654 MARTIN             30       7698 SALESMAN        1250 28-SEP-81                                              
+      7844 TURNER             30       7698 SALESMAN        1500 08-SEP-81                                              
+      7900 JAMES              30       7698 CLERK            950 03-DEC-81                                              
+
+     EMPNO ENAME          DEPTNO        MGR JOB              SAL HIREDATE                                               
+---------- ---------- ---------- ---------- --------- ---------- ---------                                              
+      7782 CLARK              10       7839 MANAGER         2450 09-JUN-81                                              
+      7934 MILLER             10       7782 CLERK           1300 23-JAN-82                                              
+      7369 SMITH              20       7902 CLERK            800 17-DEC-80                                              
+      7839 KING               10            PRESIDENT       5000 17-NOV-81                                              
+      7566 JONES              20       7839 MANAGER         2975 02-APR-81                                              
+      7788 SCOTT              20       7566 ANALYST         3000 19-APR-87                                              
+      7876 ADAMS              20       7788 CLERK           1100 23-MAY-87                                              
+      7902 FORD               20       7566 ANALYST         3000 03-DEC-81                                              
+      7369 SMITH              20       7902 CLERK            800 17-DEC-80                                              
+      7698 BLAKE              30       7839 MANAGER         2850 01-MAY-81                                              
+      7499 ALLEN              30       7698 SALESMAN        1600 20-FEB-81                                              
+
+     EMPNO ENAME          DEPTNO        MGR JOB              SAL HIREDATE                                               
+---------- ---------- ---------- ---------- --------- ---------- ---------                                              
+      7521 WARD               30       7698 SALESMAN        1250 22-FEB-81                                              
+      7654 MARTIN             30       7698 SALESMAN        1250 28-SEP-81                                              
+      7844 TURNER             30       7698 SALESMAN        1500 08-SEP-81                                              
+      7900 JAMES              30       7698 CLERK            950 03-DEC-81                                              
+      7782 CLARK              10       7839 MANAGER         2450 09-JUN-81                                              
+      7934 MILLER             10       7782 CLERK           1300 23-JAN-82                                              
+
+39 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, DEPTNO, MGR, JOB, SAL, HIREDATE
+  2  FROM EMP
+  3  START WITH ENAME IN
+  4  		(
+  5  		 SELECT ENAME
+  6  		FROM EMP E, SALGRADE S
+  7  		WHERE E.SAL BETWEEN S.LOSAL AND S.HISAL AND GRADE=5
+  8  		)
+  9* CONNECT BY PRIOR EMPNO=MGR
+SQL> /
+
+     EMPNO ENAME          DEPTNO        MGR JOB              SAL HIREDATE                                               
+---------- ---------- ---------- ---------- --------- ---------- ---------                                              
+      7839 KING               10            PRESIDENT       5000 17-NOV-81                                              
+      7566 JONES              20       7839 MANAGER         2975 02-APR-81                                              
+      7788 SCOTT              20       7566 ANALYST         3000 19-APR-87                                              
+      7876 ADAMS              20       7788 CLERK           1100 23-MAY-87                                              
+      7902 FORD               20       7566 ANALYST         3000 03-DEC-81                                              
+      7369 SMITH              20       7902 CLERK            800 17-DEC-80                                              
+      7698 BLAKE              30       7839 MANAGER         2850 01-MAY-81                                              
+      7499 ALLEN              30       7698 SALESMAN        1600 20-FEB-81                                              
+      7521 WARD               30       7698 SALESMAN        1250 22-FEB-81                                              
+      7654 MARTIN             30       7698 SALESMAN        1250 28-SEP-81                                              
+      7844 TURNER             30       7698 SALESMAN        1500 08-SEP-81                                              
+
+     EMPNO ENAME          DEPTNO        MGR JOB              SAL HIREDATE                                               
+---------- ---------- ---------- ---------- --------- ---------- ---------                                              
+      7900 JAMES              30       7698 CLERK            950 03-DEC-81                                              
+      7782 CLARK              10       7839 MANAGER         2450 09-JUN-81                                              
+      7934 MILLER             10       7782 CLERK           1300 23-JAN-82                                              
+
+14 rows selected.
+
+SQL> SELECT EMPNO, ENAME, MGR, JOB
+  2  FROM EMP
+  3  START WITH ENAME='KING'
+  4  CONNECT BY PRIOR EMPNO=MGR
+  5  AND JOB='MANAGER';
+
+     EMPNO ENAME             MGR JOB                                                                                    
+---------- ---------- ---------- ---------                                                                              
+      7839 KING                  PRESIDENT                                                                              
+      7566 JONES            7839 MANAGER                                                                                
+      7698 BLAKE            7839 MANAGER                                                                                
+      7782 CLARK            7839 MANAGER                                                                                
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB
+  2  FROM EMP
+  3  WHERE JOB='MANAGER'
+  4  START WITH ENAME='KING'
+  5* CONNECT BY PRIOR EMPNO=MGR
+SQL> /
+
+     EMPNO ENAME             MGR JOB                                                                                    
+---------- ---------- ---------- ---------                                                                              
+      7566 JONES            7839 MANAGER                                                                                
+      7698 BLAKE            7839 MANAGER                                                                                
+      7782 CLARK            7839 MANAGER                                                                                
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB
+  2  FROM EMP
+  3  START WITH ENAME='KING'
+  4  CONNECT BY PRIOR EMPNO=MGR
+  5* AND JOB='SALESMAN'
+SQL> /
+
+     EMPNO ENAME             MGR JOB                                                                                    
+---------- ---------- ---------- ---------                                                                              
+      7839 KING                  PRESIDENT                                                                              
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB
+  2  FROM EMP
+  3  START WITH ENAME='BLAKE'
+  4  CONNECT BY PRIOR EMPNO=MGR
+  5* AND JOB='SALESMAN'
+SQL> /
+
+     EMPNO ENAME             MGR JOB                                                                                    
+---------- ---------- ---------- ---------                                                                              
+      7698 BLAKE            7839 MANAGER                                                                                
+      7499 ALLEN            7698 SALESMAN                                                                               
+      7521 WARD             7698 SALESMAN                                                                               
+      7654 MARTIN           7698 SALESMAN                                                                               
+      7844 TURNER           7698 SALESMAN                                                                               
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB
+  2  FROM EMP
+  3  START WITH ENAME='KING'
+  4  CONNECT BY PRIOR EMPNO=MGR
+  5* AND JOB='MAANAGER' OR JOB='SALESMAN'
+SQL> /
+ERROR:
+ORA-01436: CONNECT BY loop in user data 
+
+
+
+no rows selected
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB
+  2  FROM EMP
+  3  START WITH ENAME='KING'
+  4  CONNECT BY PRIOR EMPNO=MGR
+  5* AND (JOB='MAANAGER' OR JOB='SALESMAN')
+SQL> /
+
+     EMPNO ENAME             MGR JOB                                                                                    
+---------- ---------- ---------- ---------                                                                              
+      7839 KING                  PRESIDENT                                                                              
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB
+  2  FROM EMP
+  3  START WITH ENAME='KING'
+  4  CONNECT BY PRIOR EMPNO=MGR
+  5* AND (JOB='MANAGER' OR JOB='SALESMAN')
+SQL> /
+
+     EMPNO ENAME             MGR JOB                                                                                    
+---------- ---------- ---------- ---------                                                                              
+      7839 KING                  PRESIDENT                                                                              
+      7566 JONES            7839 MANAGER                                                                                
+      7698 BLAKE            7839 MANAGER                                                                                
+      7499 ALLEN            7698 SALESMAN                                                                               
+      7521 WARD             7698 SALESMAN                                                                               
+      7654 MARTIN           7698 SALESMAN                                                                               
+      7844 TURNER           7698 SALESMAN                                                                               
+      7782 CLARK            7839 MANAGER                                                                                
+
+8 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB
+  2  FROM EMP
+  3  START WITH ENAME='KING'
+  4  CONNECT BY PRIOR EMPNO=MGR
+  5* AND JOB<>'SALESMAN'
+SQL> /
+
+     EMPNO ENAME             MGR JOB                                                                                    
+---------- ---------- ---------- ---------                                                                              
+      7839 KING                  PRESIDENT                                                                              
+      7566 JONES            7839 MANAGER                                                                                
+      7788 SCOTT            7566 ANALYST                                                                                
+      7876 ADAMS            7788 CLERK                                                                                  
+      7902 FORD             7566 ANALYST                                                                                
+      7369 SMITH            7902 CLERK                                                                                  
+      7698 BLAKE            7839 MANAGER                                                                                
+      7900 JAMES            7698 CLERK                                                                                  
+      7782 CLARK            7839 MANAGER                                                                                
+      7934 MILLER           7782 CLERK                                                                                  
+
+10 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB
+  2  FROM EMP
+  3  START WITH ENAME='KING'
+  4  CONNECT BY PRIOR EMPNO=MGR
+  5* AND JOB<>'ANALYST'
+SQL> /
+
+     EMPNO ENAME             MGR JOB                                                                                    
+---------- ---------- ---------- ---------                                                                              
+      7839 KING                  PRESIDENT                                                                              
+      7566 JONES            7839 MANAGER                                                                                
+      7698 BLAKE            7839 MANAGER                                                                                
+      7499 ALLEN            7698 SALESMAN                                                                               
+      7521 WARD             7698 SALESMAN                                                                               
+      7654 MARTIN           7698 SALESMAN                                                                               
+      7844 TURNER           7698 SALESMAN                                                                               
+      7900 JAMES            7698 CLERK                                                                                  
+      7782 CLARK            7839 MANAGER                                                                                
+      7934 MILLER           7782 CLERK                                                                                  
+
+10 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB
+  2  FROM EMP
+  3  START WITH ENAME='KING'
+  4  CONNECT BY PRIOR EMPNO=MGR
+  5* AND JOB<>'MANAGER'
+SQL> /
+
+     EMPNO ENAME             MGR JOB                                                                                    
+---------- ---------- ---------- ---------                                                                              
+      7839 KING                  PRESIDENT                                                                              
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB
+  2  FROM EMP
+  3  WHERE JOB<>'MANAGER'
+  4  START WITH ENAME='KING'
+  5* CONNECT BY PRIOR EMPNO=MGR
+  6  /
+
+     EMPNO ENAME             MGR JOB                                                                                    
+---------- ---------- ---------- ---------                                                                              
+      7839 KING                  PRESIDENT                                                                              
+      7788 SCOTT            7566 ANALYST                                                                                
+      7876 ADAMS            7788 CLERK                                                                                  
+      7902 FORD             7566 ANALYST                                                                                
+      7369 SMITH            7902 CLERK                                                                                  
+      7499 ALLEN            7698 SALESMAN                                                                               
+      7521 WARD             7698 SALESMAN                                                                               
+      7654 MARTIN           7698 SALESMAN                                                                               
+      7844 TURNER           7698 SALESMAN                                                                               
+      7900 JAMES            7698 CLERK                                                                                  
+      7934 MILLER           7782 CLERK                                                                                  
+
+11 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO, ENAME, MGR, JOB
+  2  FROM EMP
+  3  WHERE JOB<>'ANALYST'
+  4  START WITH ENAME='KING'
+  5* CONNECT BY PRIOR EMPNO=MGR
+SQL> /
+
+     EMPNO ENAME             MGR JOB                                                                                    
+---------- ---------- ---------- ---------                                                                              
+      7839 KING                  PRESIDENT                                                                              
+      7566 JONES            7839 MANAGER                                                                                
+      7876 ADAMS            7788 CLERK                                                                                  
+      7369 SMITH            7902 CLERK                                                                                  
+      7698 BLAKE            7839 MANAGER                                                                                
+      7499 ALLEN            7698 SALESMAN                                                                               
+      7521 WARD             7698 SALESMAN                                                                               
+      7654 MARTIN           7698 SALESMAN                                                                               
+      7844 TURNER           7698 SALESMAN                                                                               
+      7900 JAMES            7698 CLERK                                                                                  
+      7782 CLARK            7839 MANAGER                                                                                
+
+     EMPNO ENAME             MGR JOB                                                                                    
+---------- ---------- ---------- ---------                                                                              
+      7934 MILLER           7782 CLERK                                                                                  
+
+12 rows selected.
+
+SQL> SPOOL OFF
